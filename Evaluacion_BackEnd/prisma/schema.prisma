@@ -1,0 +1,73 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Creators {
+  id        Int      @id @default(autoincrement())
+  username  String   @unique
+  email     String   @unique
+  role      String   @default("tester")
+  firstName String   @map("first_name")
+  lastName  String   @map("last_name")
+  password  String
+  items     Items[]
+  quests    Quests[]
+
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
+
+  @@map("creators")
+}
+
+model Items {
+  id        Int      @id @default(autoincrement())
+  creatorID Int      @map("creator_id")
+  Creator   Creators @relation(fields: [creatorID], references: [id])
+  typeID    Int      @map("type_id")
+  Type      ItemType @relation(fields: [typeID], references: [id])
+  questID   Int      @map("quest_id")
+  Quest     Quests   @relation(fields: [questID], references: [id])
+
+  name      String    @unique
+  effect    String
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
+
+  @@map("items")
+}
+
+model Quests {
+  id        Int       @id @default(autoincrement())
+  creatorID Int       @map("creator_id")
+  Creator   Creators  @relation(fields: [creatorID], references: [id])
+  name      String
+  guide     String
+  level     Int
+  items     Items[]
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
+
+  @@map("quests")
+}
+
+model ItemType {
+  id        Int       @id @default(autoincrement())
+  name      String
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
+  items     Items[]
+
+  @@map("item_type")
+}
