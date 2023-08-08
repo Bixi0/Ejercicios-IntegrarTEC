@@ -1,0 +1,48 @@
+body {
+  font-family: 'Courier New', Courier, monospace;
+  background: linear-gradient(90deg, #e5beec, #917fb3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+main {
+  background-color: #35155d;
+  padding: 3rem;
+  width: 25rem;
+  height: 25rem;
+  border: solid 0.2rem;
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
+
+#d_username,
+#d_email,
+#d_password {
+  color: white;
+  font-size: 2.5rem;
+  display: grid;
+  margin: 0rem 0rem 1rem 0rem;
+}
+
+#inp_username,
+#inp_email,
+#inp_password {
+  background-color: #83d8fc;
+  
+  padding: 3%;
+  text-align: center;
+  border-radius: 1rem;
+  display: flex;
+}
+
+#b_login {
+  background-color: #83d8fc;
+  border-radius: 1rem;
+  margin: 1rem;
+  padding: 5%;
+}
